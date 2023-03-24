@@ -8,7 +8,7 @@
 </head>
 <body>
 <h2>登録完了！</h2>
-<a href="User_LoginFormServlet">ログイン</a>
+<a href="./">ログイン</a>
 <a href="User_RegisterFormServlet">戻る</a>
 </body>
 </html>

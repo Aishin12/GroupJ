@@ -21,7 +21,7 @@
 		<% }else{ %>
 		女
 		<%} %><br>
-	メールアドレス:<%=ua.getEmail() %><br>
+	メールアドレス:<%=ua.getMail() %><br>
 	パスワード:********<br>
 	<a href= "User_RegisterExecuteServlet">OK</a><br>
 	<a href= "User_RegisterFormServlet">戻る</a>	
