@@ -33,7 +33,7 @@ request.setCharacterEncoding("UTF-8");
 
 <div class="">
 	<p >メールアドレス</p><br>	
-	<input type="email" name="email" value=<%=ac.getEmail() %>><br>
+	<input type="email" name="mail" value=<%=ac.getMail() %>><br>
 </div>
 
 <div class="">
@@ -78,7 +78,7 @@ request.setCharacterEncoding("UTF-8");
 
 <div class="">
 	<p>メールアドレス</p>
-	<input type="email" name="email"><br>
+	<input type="email" name="mail"><br>
 </div>
 
 <div class="">
