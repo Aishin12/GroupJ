@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import dao.User_AccountDAO;
-import dto.UserLoginAccount;
+import dto.UserAccount;
 import util.GenerateHashedPw;
 
 /**
@@ -58,7 +58,7 @@ public class User_LoginServlet extends HttpServlet {
 		
 		String hashedPw = GenerateHashedPw.getSafetyPassword(pw, salt);
 		
-		UserLoginAccount account = User_AccountDAO.login(mail, hashedPw);
+		UserAccount account = User_AccountDAO.login(mail, hashedPw);
 		
 		if(account == null) {
 			String view = "./?error=1";
