@@ -36,11 +36,8 @@ public class User_RegisterConfirmServlet extends HttpServlet {
 		String last = request.getParameter("last");
 		String first = request.getParameter("first");
 		String StrYear = request.getParameter("year");
-		int year = Integer.parseInt(StrYear);
 		String StrMonth = request.getParameter("month");
-		int month = Integer.parseInt(StrMonth);
 		String StrDay = request.getParameter("day");
-		int day = Integer.parseInt(StrDay);
 		String mail = request.getParameter("mail");
 		String StrGender = request.getParameter("gender");
 		int gender = Integer.parseInt(StrGender);
@@ -49,7 +46,7 @@ public class User_RegisterConfirmServlet extends HttpServlet {
 		String name = last+" "+first;
 		String birth = StrYear + StrMonth + StrDay;
 		
-		UserAccount user = new UserAccount(-1,last,first,name,year,month,day,birth,gender,mail,pw,null,null);
+		UserAccount user = new UserAccount(-1,name,birth,gender,mail,null,pw);
 		HttpSession session = request.getSession();
 		
 		session.setAttribute("input_user", user);
