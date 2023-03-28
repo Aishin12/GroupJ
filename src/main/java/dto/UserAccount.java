@@ -2,34 +2,21 @@ package dto;
 
 public class UserAccount {
 	private int userid;
-	private String last;
-	private String first;
 	private String name;
-	private int year;
-	private int month;
-	private int day;
 	private String birth;
 	private int gender;
 	private String mail;
-	private String pw;
 	private String salt;
-	private String hashedPw;
-	public UserAccount(int userid, String last, String first, String name, int year, int month, int day, String birth,
-			int gender, String mail, String pw, String salt, String hashedPw) {
+	private String pw;
+	public UserAccount(int userid, String name, String birth, int gender, String mail, String salt, String pw) {
 		super();
 		this.userid = userid;
-		this.last = last;
-		this.first = first;
 		this.name = name;
-		this.year = year;
-		this.month = month;
-		this.day = day;
 		this.birth = birth;
 		this.gender = gender;
 		this.mail = mail;
-		this.pw = pw;
 		this.salt = salt;
-		this.hashedPw = hashedPw;
+		this.pw = pw;
 	}
 	public int getUserid() {
 		return userid;
@@ -37,41 +24,11 @@ public class UserAccount {
 	public void setUserid(int userid) {
 		this.userid = userid;
 	}
-	public String getLast() {
-		return last;
-	}
-	public void setLast(String last) {
-		this.last = last;
-	}
-	public String getFirst() {
-		return first;
-	}
-	public void setFirst(String first) {
-		this.first = first;
-	}
 	public String getName() {
 		return name;
 	}
 	public void setName(String name) {
 		this.name = name;
-	}
-	public int getYear() {
-		return year;
-	}
-	public void setYear(int year) {
-		this.year = year;
-	}
-	public int getMonth() {
-		return month;
-	}
-	public void setMonth(int month) {
-		this.month = month;
-	}
-	public int getDay() {
-		return day;
-	}
-	public void setDay(int day) {
-		this.day = day;
 	}
 	public String getBirth() {
 		return birth;
@@ -91,24 +48,20 @@ public class UserAccount {
 	public void setMail(String mail) {
 		this.mail = mail;
 	}
-	public String getPw() {
-		return pw;
-	}
-	public void setPw(String pw) {
-		this.pw = pw;
-	}
 	public String getSalt() {
 		return salt;
 	}
 	public void setSalt(String salt) {
 		this.salt = salt;
 	}
-	public String getHashedPw() {
-		return hashedPw;
+	public String getPw() {
+		return pw;
 	}
-	public void setHashedPw(String hashedPw) {
-		this.hashedPw = hashedPw;
+	public void setPw(String pw) {
+		this.pw = pw;
 	}
+	
+	
 	
 }
 

@@ -13,16 +13,16 @@ import javax.servlet.http.HttpSession;
 import dto.UserAccount;
 
 /**
- * Servlet implementation class User_RegisterComfirmServlet
+ * Servlet implementation class User_AccountUpdateServlet
  */
-@WebServlet("/User_RegisterComfirmServlet")
-public class User_RegisterConfirmServlet extends HttpServlet {
+@WebServlet("/User_AccountEditServlet")
+public class User_AccountEditServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public User_RegisterConfirmServlet() {
+    public User_AccountEditServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -31,29 +31,19 @@ public class User_RegisterConfirmServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.setCharacterEncoding("UTF-8");
-		
-		String last = request.getParameter("last");
-		String first = request.getParameter("first");
-		String StrYear = request.getParameter("year");
-		String StrMonth = request.getParameter("month");
-		String StrDay = request.getParameter("day");
-		String mail = request.getParameter("mail");
-		String StrGender = request.getParameter("gender");
-		int gender = Integer.parseInt(StrGender);
-		String pw = request.getParameter("pw");
-		
-		String name = last+" "+first;
-		String birth = StrYear + StrMonth + StrDay;
-		
-		UserAccount user = new UserAccount(-1,name,birth,gender,mail,null,pw);
 		HttpSession session = request.getSession();
+		UserAccount account = (UserAccount)session.getAttribute("user");
 		
-		session.setAttribute("input_user", user);
+		if(account == null){
+			String view = "./";
+			RequestDispatcher dispatcher = request.getRequestDispatcher(view);
+			dispatcher.forward(request, response);
+			return;
+		}
 		
-		String view = "WEB-INF/view/User_RegisterConfirm.jsp";
+		String view = "WEB-INF/view/User_AccountEdit.jsp";
 		RequestDispatcher dispatcher = request.getRequestDispatcher(view);
-		dispatcher.forward(request, response);	
+		dispatcher.forward(request, response);
 	}
 
 	/**

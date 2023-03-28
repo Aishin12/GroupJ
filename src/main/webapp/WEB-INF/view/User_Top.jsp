@@ -12,7 +12,7 @@
 	
 		
 		<a href="null">図書検索</a>
-		<a href="null">利用者情報の変更</a>
+		<a href="User_AccountEditServlet">利用者情報の変更</a>
 		<a href="null">貸出履歴</a>
 	</div>
 	

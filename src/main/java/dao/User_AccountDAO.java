@@ -9,7 +9,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import dto.UserAccount;
-import dto.UserLoginAccount;
 import util.GenerateHashedPw;
 import util.GenerateSalt;
 
@@ -36,8 +35,6 @@ public class User_AccountDAO {
 		
 		String hashedPw = GenerateHashedPw.getSafetyPassword(user.getPw(),salt);
 
-		System.out.println(salt);
-		System.out.println(hashedPw);
 		
 		try (
 				Connection con = getConnection();
@@ -87,7 +84,7 @@ public class User_AccountDAO {
 		return null;
 	}
 	
-	public static UserLoginAccount login(String mail, String hashedPw) {
+	public static UserAccount login(String mail, String hashedPw) {
 		String sql = "SELECT userid, name, birth, gender, salt  FROM users WHERE mail = ? AND pw = ?";
 		
 		try (
@@ -106,7 +103,7 @@ public class User_AccountDAO {
 					int gender = rs.getInt("gender");
 					String salt = rs.getString("salt");
 					
-					return new UserLoginAccount(userid,name,birth,gender,mail,salt,hashedPw);
+					return new UserAccount(userid,name,birth,gender,mail,salt,hashedPw);
 				}
 			}
 		} catch (SQLException e) {
@@ -116,5 +113,32 @@ public class User_AccountDAO {
 		}
 		return null;
 	}
+	
+	public static int UpdateUserAccount(UserAccount user) {
+		String sql = "UPDATE users SET name = ?, birth = ?, gender = ? WHERE mail = ?";
+		int result  = 0;
+		
+		
+		try (
+				Connection con = getConnection();
+				PreparedStatement pstmt = con.prepareStatement(sql);
+				){
+			pstmt.setString(1, user.getName());
+			pstmt.setString(2, user.getBirth());
+			pstmt.setInt(3, user.getGender());
+			pstmt.setString(4,user.getMail());
+
+			result = pstmt.executeUpdate();
+		}catch (SQLException e) {
+			e.printStackTrace();
+		} catch (URISyntaxException e) {
+			e.printStackTrace();
+		} finally {
+			System.out.println(result + "件更新しました。");
+		}
+		return result;
+		
+	}
+	
 	
 }
