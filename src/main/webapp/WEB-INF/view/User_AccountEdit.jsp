@@ -20,7 +20,7 @@
 	String day = birth.substring(6);
 %>
 <h2>利用者情報の変更</h2>
-<form action="User_AccountUpdateServlet" method="post">
+<form action="User_AccountEditUpdateServlet" method="post">
 	<p>姓名</p>
 	<input type="text" name="last" value=<%=names[0] %>>
 	<input type="text" name="first" value=<%=names[1] %>><br>
@@ -44,6 +44,6 @@
 	<input type="hidden" name="pw" value=<%=account.getPw() %>>
 	<input type="submit" value="変更">
 </form>
-<a href="User_Top">戻る</a>
+<a href="User_TopServlet">戻る</a>
 </body>
 </html>

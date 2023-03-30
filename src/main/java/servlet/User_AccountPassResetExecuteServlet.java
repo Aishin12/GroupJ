@@ -12,18 +12,20 @@ import javax.servlet.http.HttpSession;
 
 import dao.User_AccountDAO;
 import dto.UserAccount;
+import util.GenerateHashedPw;
+import util.GenerateSalt;
 
 /**
- * Servlet implementation class User_AccountUpdateServlet
+ * Servlet implementation class User_AccountPassResetExecuteServlet
  */
-@WebServlet("/User_AccountUpdateServlet")
-public class User_AccountUpdateServlet extends HttpServlet {
+@WebServlet("/User_AccountPassResetExecuteServlet")
+public class User_AccountPassResetExecuteServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public User_AccountUpdateServlet() {
+    public User_AccountPassResetExecuteServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -33,7 +35,7 @@ public class User_AccountUpdateServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-				response.getWriter().append("Served at: ").append(request.getContextPath());
+		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
 
 	/**
@@ -42,39 +44,41 @@ public class User_AccountUpdateServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 		
-		String last = request.getParameter("last");
-		String first = request.getParameter("first");
-		String StrYear = request.getParameter("year");
-		String StrMonth = request.getParameter("month");
-		String StrDay = request.getParameter("day");
-		String StrGender = request.getParameter("gender");
-		String mail = request.getParameter("mail");
 		String pw = request.getParameter("pw");
-		int gender = Integer.parseInt(StrGender);
-		
-		String name = last+" "+first;
-		String birth = StrYear + StrMonth + StrDay;
-
-		UserAccount user = new UserAccount(-1,name,birth,gender,mail,null,pw);
 		
 		HttpSession session = request.getSession();
-		session.setAttribute("input_user", user);
+		UserAccount account = (UserAccount)session.getAttribute("user_lostPw");
 		
-		int result = User_AccountDAO.UpdateUserAccount(user);
+		int userid = account.getUserid();
+		String name = account.getName();
+		String birth = account.getBirth();
+		int gender = account.getGender();
+		String mail = account.getMail();
+		
+		
+		String salt = GenerateSalt.getSalt(32);
+		String hashedPw = GenerateHashedPw.getSafetyPassword(pw,salt);
+		
+		UserAccount UdAccount = new UserAccount(userid,name,birth,gender,mail,salt,hashedPw);
+		
+		int result = User_AccountDAO.pwUpdate(UdAccount);
 		System.out.println("resultの値："+result);
 		
 		String path = "";
 		
-		if(result == 1) {			
-			path = "WEB-INF/view/User_AccountEditSuccess.jsp";
+		session.removeAttribute("user_lostPw");
+		
+		if(result == 1) {	
+
+			session.setAttribute("user", UdAccount);
+			path = "WEB-INF/view/User_AccountPassResetSuccess.jsp";
+		
 		} else {
 			// 失敗した場合はパラメータ付きで登録画面に戻す
-			path = "./";
+			path = "WEB-INF/view/User_AccountPassResetFailed.jsp";
 		}
 		RequestDispatcher dispatcher = request.getRequestDispatcher(path);
 		dispatcher.forward(request, response);
-		
-		
 	}
 
 }

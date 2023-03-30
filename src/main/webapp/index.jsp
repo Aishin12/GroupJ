@@ -22,7 +22,7 @@
 		パスワード：<input type="password" name="pw"><br>
 		<input type="submit" value="ログイン">
 	</form>
-	<a href="">パスワードを忘れた場合</a><br>
+	<a href="User_ChangePassFormServlet">パスワードを忘れた場合</a><br>
 	<%
 		} else {
 	%>
@@ -34,7 +34,7 @@
 		パスワード：<input type="password" name="pw"><br>
 		<input type="submit" value="ログイン">
 	</form>
-	<a href="">パスワードを忘れた場合</a><br>
+	<a href="User_ChangePassFormServlet">パスワードを忘れた場合</a><br>
 	<%
 		}
 	%>

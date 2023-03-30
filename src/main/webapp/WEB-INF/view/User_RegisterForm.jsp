@@ -13,6 +13,14 @@ request.setCharacterEncoding("UTF-8");
 	String errorCode = request.getParameter("error");
 	if(errorCode != null && errorCode.equals("1")){
 		UserAccount ac = (UserAccount)session.getAttribute("input_user");
+		
+		String fullName = ac.getName();
+		String[] names = fullName.split(" ");
+		
+		String birth = ac.getBirth();
+		String year = birth.substring(0,4);
+		String month = birth.substring(4,6);
+		String day = birth.substring(6);
 %>
 <h1>新規登録</h1>
 <p class="" style="color:red">※登録された内容に誤りがあります。</p>
@@ -20,15 +28,15 @@ request.setCharacterEncoding("UTF-8");
 <div class="">
 	<span>姓</span>
 	<span>名</span><br>
-	<input type="text" name="last" value=<%=ac.getLast() %>>
-	<input type="text" name="first" value=<%=ac.getFirst() %>><br>
+	<input type="text" name="last" value=<%=names[0] %>>
+	<input type="text" name="first" value=<%=names[1] %>><br>
 </div>
 
 <div class="">
 	<p>生年月日</p><br>
-	<input type="text" maxlength="4" name="year" value=<%=ac.getYear() %>>年
-	<input type="text" maxlength="2" name="month" value=<%=ac.getMonth() %>>月
-	<input type="text" maxlength="2" name="day" value=<%=ac.getDay() %>>日<br>
+	<input type="text" maxlength="4" name="year" value=<%=year %>>年
+	<input type="text" maxlength="2" name="month" value=<%=month %>>月
+	<input type="text" maxlength="2" name="day" value=<%=day %>>日<br>
 </div>
 
 <div class="">
@@ -56,7 +64,7 @@ request.setCharacterEncoding("UTF-8");
 
 <input type="submit" value="アカウント作成">
 </form>
-
+<a href="./">戻る</a>
 <%
 	}else{
 %>
@@ -94,6 +102,7 @@ request.setCharacterEncoding("UTF-8");
 
 <input type="submit" value="アカウント作成">
 </form>
+<a href="./">戻る</a>
 <%} %>
 </body>
 </html>

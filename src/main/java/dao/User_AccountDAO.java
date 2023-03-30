@@ -140,5 +140,81 @@ public class User_AccountDAO {
 		
 	}
 	
+	public static String searchMail(String mail) {
+		String sql = "SELECT name from users WHERE mail = ? ";
+		
+		try (
+				Connection con = getConnection();
+				PreparedStatement pstmt = con.prepareStatement(sql);
+				){
+			pstmt.setString(1, mail);
+
+			try (ResultSet rs = pstmt.executeQuery()){
+				
+				if(rs.next()) {
+					String name = rs.getString("name");
+					return name;
+				}
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (URISyntaxException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
+	public static UserAccount searchUser(String mail) {
+		String sql = "SELECT userid, name, birth, gender FROM users WHERE mail = ? ";
+		
+		try (
+				Connection con = getConnection();
+				PreparedStatement pstmt = con.prepareStatement(sql);
+				){
+			pstmt.setString(1, mail);
+
+			try (ResultSet rs = pstmt.executeQuery()){
+				
+				if(rs.next()) {
+					int userid = rs.getInt("userid");
+					String name = rs.getString("name");
+					String birth = rs.getString("birth");
+					int gender = rs.getInt("gender");
+					
+					return new UserAccount(userid,name,birth,gender,mail,null,null);
+				}
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (URISyntaxException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
+	public static int pwUpdate(UserAccount user) {
+		String sql = "UPDATE users SET pw = ? WHERE mail = ?";
+		int result  = 0;
+		
+		
+		try (
+				Connection con = getConnection();
+				PreparedStatement pstmt = con.prepareStatement(sql);
+				){
+			pstmt.setString(1, user.getPw());
+			pstmt.setString(2, user.getMail());
+
+			result = pstmt.executeUpdate();
+		}catch (SQLException e) {
+			e.printStackTrace();
+		} catch (URISyntaxException e) {
+			e.printStackTrace();
+		} finally {
+			System.out.println(result + "件更新しました。");
+		}
+		return result;
+		
+	}
+	
 	
 }
