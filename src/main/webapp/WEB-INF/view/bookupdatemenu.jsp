@@ -7,9 +7,9 @@
 <title>図書編集画面</title>
 </head>
 <body>
-		<form action="BooksearchactionServlet" method="post">
-        図書名/ISBN
-	 	<input type="text" name="keyword" ><br>
+		<form action="BookupdatesearchServlet" method="post">
+        図書名:
+	 	<input type="text" name="title" ><br>
 		
 		<input type="submit" value="検索">
 		
