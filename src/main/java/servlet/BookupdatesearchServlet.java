@@ -1,11 +1,17 @@
 package servlet;
 
 import java.io.IOException;
+import java.util.List;
+
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import dao.BookDAO;
+import dto.BookDTO;
 
 /**
  * Servlet implementation class BookupdatesearchServlet
@@ -26,8 +32,16 @@ public class BookupdatesearchServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		request.setCharacterEncoding("UTF-8");
+		String title=request.getParameter("title");
+		
+		List<BookDTO> updatebooksearch = BookDAO.selectupdateBook(title);
+		
+		request.setAttribute("list", updatebooksearch);
+		
+		String view = "WEB-INF/view/updatebookselect.jsp";
+		RequestDispatcher dispatcher = request.getRequestDispatcher(view);
+		dispatcher.forward(request, response);
 	}
 
 	/**

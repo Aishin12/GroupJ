@@ -222,10 +222,10 @@ public static List<BookDTO> deleteselectBook(int isbn){
 }
 	
 		
-public static List<BookDTO> selectupdateBook(String keyword){
+public static List<BookDTO> selectupdateBook(String title){
 			
 			// 実行するSQL
-			String sql = "SELECT * FROM book WHERE title like ? OR isbn ?";
+			String sql = "SELECT * FROM book WHERE title like ?";
 			List<BookDTO> result=new ArrayList<>();
 					
 			try (
@@ -233,8 +233,8 @@ public static List<BookDTO> selectupdateBook(String keyword){
 					PreparedStatement pstmt = con.prepareStatement(sql);			// 構文解析
 					){
 				
-				pstmt.setString(1, "%"+ keyword +"%");
-				pstmt.setString(2, "%"+ keyword +"%");
+				pstmt.setString(1, "%"+ title +"%");
+			
 				
 				
 				try (ResultSet rs = pstmt.executeQuery()){
@@ -242,7 +242,7 @@ public static List<BookDTO> selectupdateBook(String keyword){
 					while(rs.next()) {
 					
 						int bookid = rs.getInt("bookid");
-						String title = rs.getString("title");
+				
 						String kana_title = rs.getString("kana_title");
 						String author = rs.getString("author");
 						int isbn = rs.getInt("isbn");
